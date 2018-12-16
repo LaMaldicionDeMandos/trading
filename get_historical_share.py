@@ -3,6 +3,7 @@ import json
 from botocore.vendored import requests
 import logging
 import os
+from put_share_history_in_s3 import put_share
 
 logger = logging.getLogger('get_historical_share_handler')
 logger.setLevel(logging.INFO)
@@ -43,9 +44,10 @@ def get_historical_share_handler(event, context):
             })
         response.raise_for_status()
         if response.status_code == 200:
+            result = response.json()
             return {
                 'statusCode': 201,
-                'body': response.json()
+                'body': put_share(index, share, response.text)
             }
         return {'statusCode': 500}
 

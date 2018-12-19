@@ -12,7 +12,7 @@ def update_all(event, context):
     s3 = boto3.client("s3")
     share_names = get_share_names(s3)
     for share_name in share_names:
-        share = get_share(s3, share_name)
+        get_share(s3, share_name)
 
 
 def get_share_names(s3):
@@ -25,4 +25,3 @@ def get_share(s3, share_name):
     data = json.loads(file_content)
     # Esta ultima linea usa len para saber la cantidad de registros que tiene
     logger.info("%s -> %d" % (share_name, len(data)))
-    return data

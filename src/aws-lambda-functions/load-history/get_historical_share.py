@@ -2,7 +2,7 @@ import json
 import datetime
 import invertir_online_connection
 import logging
-from put_share_history_in_s3 import put_share
+import s3_service
 
 logger = logging.getLogger('get_historical_share_handler')
 logger.setLevel(logging.INFO)
@@ -22,6 +22,6 @@ def get_historical_share_handler(event, context):
         result = invertir_online_connection.get_historical_share(access_token, index, share, fromDate, toDate)
         return {
             'statusCode': 201,
-            'body': put_share(index, share, json.dumps(result))
+            'body': s3_service.put_share(index, share, json.dumps(result))
         }
 

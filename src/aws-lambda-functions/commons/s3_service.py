@@ -28,3 +28,10 @@ def get_share(share_name):
     data = json.loads(file_content)
     logger.info("%s -> %d" % (share_name, len(data)))
     return data
+
+def get_indexes():
+    s3 = boto3.client("s3")
+    return list(
+        map(
+            lambda it : it['Prefix'][:-1],
+            s3.list_objects(Bucket=BUCKET, Delimiter='/')['CommonPrefixes']))

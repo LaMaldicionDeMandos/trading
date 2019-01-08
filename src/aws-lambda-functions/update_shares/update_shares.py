@@ -32,7 +32,8 @@ def get_index_and_share_name(name):
 
 def dates_from_event(event):
     delta = datetime.timedelta(days=1)
-    yesterday = datetime.date.today() - delta
-    fromDate = event.get('from', yesterday.isoformat()) or yesterday.isoformat()
-    toDate = event.get('to', datetime.date.today().isoformat()) or datetime.date.today().isoformat()
+    today = datetime.date.today()
+    tomorrow = today + delta
+    fromDate = event.get('from', today.isoformat()) or today.isoformat()
+    toDate = event.get('to', tomorrow.isoformat()) or tomorrow.isoformat()
     return fromDate, toDate

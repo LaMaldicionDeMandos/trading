@@ -29,9 +29,18 @@ def get_share(share_name):
     logger.info("%s -> %d" % (share_name, len(data)))
     return data
 
+
 def get_indexes():
     s3 = boto3.client("s3")
     return list(
         map(
             lambda it : it['Prefix'][:-1],
             s3.list_objects(Bucket=BUCKET, Delimiter='/')['CommonPrefixes']))
+
+def get_share_names_by_index(index):
+    s3 = boto3.client("s3")
+    prefix = "%s/" % index
+    return list(
+        map(
+            lambda it : it['Prefix'][len(index)+1:-1],
+            s3.list_objects(Bucket=BUCKET, Prefix=prefix, Delimiter='.')['CommonPrefixes']))

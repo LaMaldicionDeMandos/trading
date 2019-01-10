@@ -1,5 +1,3 @@
-import datetime
-import json
 import logging
 import s3_service
 

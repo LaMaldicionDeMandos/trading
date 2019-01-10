@@ -20,8 +20,4 @@ def get_historical_share_handler(event, context):
     else:
         logger.info("Access token %s" % access_token)
         result = invertir_online_connection.get_historical_share(access_token, index, share, fromDate, toDate)
-        return {
-            'statusCode': 201,
-            'body': s3_service.put_share(index, share, json.dumps(result))
-        }
-
+        return s3_service.put_share(index, share, json.dumps(result))

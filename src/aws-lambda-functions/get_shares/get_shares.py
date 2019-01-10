@@ -11,7 +11,4 @@ def get_share(event, context):
     index = event['index']
     share_name = event['stock_share']
     share = s3_service.get_share('%s/%s.json' % (index, share_name))
-    return {
-        'statusCode': 200,
-        'body': share
-    }
+    return share
